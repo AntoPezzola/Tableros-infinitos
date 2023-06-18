@@ -27,19 +27,20 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
 
   if (nodo->kx < x && nodo->ky < y)
   {
-    return findBBNode(nodo[1], x, y);
+    return findBBNode(nodo->hijo[1], x, y);
   }
-  if (nodo->kx < x &&nodo->ky = > y)
+  if (nodo->kx < x && nodo->ky >= y) 
   {
-    return findBBNode(nodo[2], x, y);
+    return findBBNode(nodo->hijo[1], x, y);
   }
-  if (nodo->kx = > x && nodo->ky < y)
+  if (nodo->kx >= x && nodo->ky < y)
   {
-    return findBBNode(nodo[3], x, y);
+    return findBBNode(nodo->hijo[1], x, y);
   }
-  if (nodo->kx = > x &&nodo->ky = > y)
+  if (nodo->kx >= x &&nodo->ky >= y)
+
   {
-    return findBBNode(nodo[4], x, y);
+    return findBBNode(nodo->hijo[1], x, y);
   }
 
   return NULL;
@@ -52,8 +53,6 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
     BBNode *nuevoNodo = new BBNode;
     nuevoNodo->kx = x;
     nuevoNodo->ky = y;
-    nuevoNodo->bolitas = [];
-    nuevoNodo->hijo = [];
     return nuevoNodo;
   }
 
@@ -64,27 +63,28 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
 
   if (nodo->kx < x && nodo->ky < y)
   {
-    nodo->hijo[1] = insertBBNode(nodo[1], x, y);
+    nodo->hijo[1] = insertBBNode(nodo->hijo[1], x, y);
   }
-  if (nodo->kx < x &&nodo->ky = > y)
+  if (nodo->kx < x &&nodo->ky >= y)
   {
-    nodo->hijo[2] = insertBBNode(nodo[2], x, y);
+    nodo->hijo[2] = insertBBNode(nodo->hijo[2], x, y);
   }
-  if (nodo->kx = > x && nodo->ky < y)
+  if (nodo->kx >= x && nodo->ky < y)
   {
-    nodo->hijo[3] = insertBBNode(nodo[3], x, y);
+    nodo->hijo[3] = insertBBNode(nodo->hijo[3], x, y);
   }
-  if (nodo->kx = > x && nodo->ky = > y)
+  if (nodo->kx >= x && nodo->ky >=  y)
   {
-    nodo->hijo[4] = insertBBNode(nodo[4], x, y);
+    nodo->hijo[4] = insertBBNode(nodo->hijo[4], x, y);
   }
 
   return nodo;
 }
 
-void LiberarBiBST(BiBST t)
-{
-  // COMPLETAR
+void LiberarBiBST(BiBST t){
+  
+  
+
 }
 
 //==========================================================================
