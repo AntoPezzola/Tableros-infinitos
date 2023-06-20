@@ -5,6 +5,7 @@ using namespace std;
 
 #ifndef BBNODEALREADYDEFINED
 #define BBNODEALREADYDEFINED
+
 struct BBNode {
   int kx;                                     // Primera clave
   int ky;                                     // Segunda clave 
@@ -12,7 +13,8 @@ struct BBNode {
   BBNode* hijo[4] = {NULL, NULL, NULL, NULL}; // Los 4 hijos (array indexado por Cuadrante)
 };
 /* INV.REP.
-    * VER BiBST.cpp
+   * Los pares de claves no se repiten en el arbol
+   * Las claves de los hijos del BBNode no son iguales que el del raiz
 */
 #endif
 

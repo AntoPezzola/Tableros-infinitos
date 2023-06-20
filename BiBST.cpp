@@ -27,20 +27,20 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
 
   if (nodo->kx < x && nodo->ky < y)
   {
-    return findBBNode(nodo->hijo[1], x, y);
+    return findBBNode(nodo->hijo[NE], x, y);
   }
   if (nodo->kx < x && nodo->ky >= y) 
   {
-    return findBBNode(nodo->hijo[1], x, y);
+    return findBBNode(nodo->hijo[SE], x, y);
   }
   if (nodo->kx >= x && nodo->ky < y)
   {
-    return findBBNode(nodo->hijo[1], x, y);
+    return findBBNode(nodo->hijo[NO], x, y);
   }
   if (nodo->kx >= x &&nodo->ky >= y)
 
   {
-    return findBBNode(nodo->hijo[1], x, y);
+    return findBBNode(nodo->hijo[SO], x, y);
   }
 
   return NULL;
@@ -63,19 +63,19 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
 
   if (nodo->kx < x && nodo->ky < y)
   {
-    nodo->hijo[1] = insertBBNode(nodo->hijo[1], x, y);
+    nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
   }
   if (nodo->kx < x &&nodo->ky >= y)
   {
-    nodo->hijo[2] = insertBBNode(nodo->hijo[2], x, y);
+    nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
   }
   if (nodo->kx >= x && nodo->ky < y)
   {
-    nodo->hijo[3] = insertBBNode(nodo->hijo[3], x, y);
+    nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
   }
   if (nodo->kx >= x && nodo->ky >=  y)
   {
-    nodo->hijo[4] = insertBBNode(nodo->hijo[4], x, y);
+    nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
   }
 
   return nodo;
