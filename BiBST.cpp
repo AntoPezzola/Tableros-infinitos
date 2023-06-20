@@ -15,9 +15,9 @@ using namespace std;
 //==========================================================================
 BBNode *findBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == NULL)
+  if (nodo == EMPTYBB)
   {
-    return NULL;
+    return EMPTYBB;
   }
 
   if (nodo->kx == x && nodo->ky == y)
@@ -43,12 +43,12 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
     return findBBNode(nodo->hijo[SO], x, y);
   }
 
-  return NULL;
+  return EMPTYBB;
 }
 
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == NULL)
+  if (nodo == EMPTYBB)
   {
     BBNode *nuevoNodo = new BBNode;
     nuevoNodo->kx = x;
@@ -82,10 +82,16 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
 }
 
 void LiberarBiBST(BiBST t){
-  
-  
-
-}
+  if (t == EMPTYBB ) {
+    return; 
+  }
+      LiberarBiBST(t->hijo[NE]);
+      LiberarBiBST(t->hijo[SE]);
+      LiberarBiBST(t->hijo[NO]);
+      LiberarBiBST(t->hijo[SO]); 
+       
+    delete t; 
+    }
 
 //==========================================================================
 // Impresión para verificaciones

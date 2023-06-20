@@ -21,7 +21,7 @@ typedef int Dir;
 #define ESTE  1
 #define SUR   2
 #define OESTE 3
-#define PRINTDIR(dir) switch (dir) { case NORTE: cout << "Norte"; break; case ESTE: cout << "Este"; break; case SUR: cout << "Sur"; break; case Oeste: cout << "Oeste"; break; default: cerr << "ERROR: " << dir << " no es una representación de una dirección válida"; exit(1); }
+#define PRINTDIR(dir) switch (dir) { case NORTE: cout << "Norte"; break; case ESTE: cout << "Este"; break; case SUR: cout << "Sur"; break; case OESTE: cout << "Oeste"; break; default: cerr << "ERROR: " << dir << " no es una representación de una dirección válida"; exit(1); }
 #define PRINTDIRN(dir, n) PRINTDIR(dir); cout << ": " << n
 #define VALIDDIR(dir) (NORTE <= dir && dir <= OESTE)
 
