@@ -25,7 +25,7 @@ typedef TableroInfinitoHeader *TableroInfinito;
 TableroInfinito TInfInicial()
 {
   TableroInfinito t = new TableroInfinitoHeader;
-  t->celda = EMPTYBB;
+  t->celda = EMPTYBB; 
   t->x = 0;
   t->y = 0;
   return t;
@@ -38,11 +38,9 @@ void PonerNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-   BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y); 
-   int celdaActualBolitas = celdaActual->bolitas[color];
-   celdaActual->bolitas[color] = celdaActualBolitas + n; 
-
-  PrintBB(celdaActual); 
+   t->celda = insertBBNode(t->celda, t->x, t->y); 
+   t->celda->bolitas[color] += n; 
+ // PrintBB(t->celda); 
 }
 
 //--------------------------------------------------------------------------
@@ -59,10 +57,8 @@ void SacarNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  BBNode* celdaActual = insertBBNode(t->celda, t->x, t->y); 
-  celdaActual->bolitas[color] -= n; 
-
-  PrintBB(celdaActual); 
+  t->celda = insertBBNode(t->celda, t->x, t->y); 
+  t->celda->bolitas[color] -= n; 
 
 }
 
@@ -100,7 +96,7 @@ int nroBolitasTInf(TableroInfinito t, Color color)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-   return insertBBNode(t->celda, t->x, t->y)->bolitas[color]; 
+  return t->celda->bolitas[color]; 
 }
 
 //--------------------------------------------------------------------------
@@ -120,11 +116,16 @@ void LiberarTInf(TableroInfinito t)
 //==========================================================================
 // Impresión para verificaciones
 //==========================================================================
-void PrintRepTInf(TableroInfinito t){
-  
-  cout << "Celda actual: " << "(" << t->x << " , " << t->y << ")" << endl; 
-  if (t != NULL && t->celda != NULL) 
+void PrintRepTInf(TableroInfinito t)
+{
+  if (t == NULL)
   {
-  PrintBB(t->celda);
+    return;
+  cout << "Celda actual: " << "(" << t->x << " , " << t->y << ")" << endl; 
   }
+  if (t->celda == EMPTYBB)
+  {
+    return;
+  }
+  PrintBB(t->celda);
 }
