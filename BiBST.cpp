@@ -46,6 +46,7 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
   return EMPTYBB;
 }
 
+
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
   if (nodo == EMPTYBB)
@@ -77,8 +78,7 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
   {
     nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
   }
-
-  return nodo;
+   return nodo; 
 }
 
 void LiberarBiBST(BiBST t){
