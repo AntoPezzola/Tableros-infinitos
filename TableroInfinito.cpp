@@ -139,4 +139,5 @@ void PrintRepTInf(TableroInfinito t)
   cout << "Celda actual: "
        << "(" << t->x << " , " << t->y << ")" << endl;
   PrintBB(t->celda);
+  cout << endl; 
 }

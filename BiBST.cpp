@@ -65,18 +65,22 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
   if (nodo->kx < x && nodo->ky < y)
   {
     nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
+    return  insertBBNode(nodo->hijo[NE], x, y);
   }
   if (nodo->kx < x &&nodo->ky >= y)
   {
     nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
+    return insertBBNode(nodo->hijo[SE], x, y);
   }
   if (nodo->kx >= x && nodo->ky < y)
   {
     nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
+    return insertBBNode(nodo->hijo[NO], x, y);
   }
   if (nodo->kx >= x && nodo->ky >=  y)
   {
     nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
+    return insertBBNode(nodo->hijo[SO], x, y);
   }
    return nodo; 
 }
