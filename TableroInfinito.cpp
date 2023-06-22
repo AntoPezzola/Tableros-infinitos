@@ -16,7 +16,8 @@ struct TableroInfinitoHeader
   int y; // coordenada y de la celda actual
 };
 /* INV.REP.:
- * COMPLETAR
+   * Cuando saco bolitas de la celda actual, la misma debe exisit
+
  */
 
 typedef TableroInfinitoHeader *TableroInfinito;
@@ -49,8 +50,9 @@ void SacarNTInf(TableroInfinito t, Color color, int n)
   //  * el color es válido
   //  * hay al menos n bolitas en la celda actual en t
   BBNode *celdaActual = findBBNode(t->celda, t->x, t->y);
-  if(celdaActual != EMPTYBB) {
-    BOOM("ERROR la celda no existe"); 
+  if (celdaActual == EMPTYBB)
+  {
+    BOOM("ERROR la celda no existe");
   }
 
   if (celdaActual->bolitas[color] < n)
@@ -105,7 +107,12 @@ int nroBolitasTInf(TableroInfinito t, Color color)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y);
+  BBNode *celdaActual = findBBNode(t->celda, t->x, t->y);
+
+  if (celdaActual == EMPTYBB)
+  {
+    BOOM("ERROR la celda no existe");
+  }
   return celdaActual->bolitas[color];
 }
 
@@ -137,7 +144,7 @@ void PrintRepTInf(TableroInfinito t)
     return;
   }
   cout << "Celda actual: "
-       << "(" << t->x << " , " << t->y << ")" << endl;
+       << "(" << t->x << "," << t->y << ")" << endl;
   PrintBB(t->celda);
-  cout << endl; 
+  cout << endl;
 }

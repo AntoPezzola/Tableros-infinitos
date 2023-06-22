@@ -15,6 +15,7 @@ struct BBNode {
 /* INV.REP.
    * Los pares de claves no se repiten en el arbol
    * Las claves de los hijos del BBNode no son iguales que el del raiz
+   * La cantidad de bolitas en celda no puede ser negativa
 */
 #endif
 
