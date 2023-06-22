@@ -11,13 +11,14 @@ using namespace std;
 //==========================================================================
 struct TableroInfinitoHeader
 {
-  BBNode *celda;
+  BBNode *celda; // celda actual, la cual se incializa con 0,0 sin bolitas, ni nodos
   int x; // coordenada x de la celda actual
   int y; // coordenada y de la celda actual
 };
 /* INV.REP.:
-   * Cuando saco bolitas de la celda actual, la misma debe exisit
-
+   * Cuando saco bolitas o pongo bolitas en celda actual, la misma debe exisir en el tablero
+   * Para pedirle la cantidad de bolitas en la celda actual, la misma debe existir en el tablero
+   * No existen celdas repetidas en el tablero
  */
 
 typedef TableroInfinitoHeader *TableroInfinito;
@@ -39,7 +40,7 @@ void PonerNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  BBNode *celdaNueva = insertBBNode(t->celda, t->x, t->y);
+  BBNode *celdaNueva = findBBNode(t->celda, t->x, t->y);
   celdaNueva->bolitas[color] += n;
 }
 
@@ -57,11 +58,11 @@ void SacarNTInf(TableroInfinito t, Color color, int n)
 
   if (celdaActual->bolitas[color] < n)
   {
-    BOOM("ERROR la cantidad que queres sacar es mayor a la cantidad que hay en la celda actual");
+    BOOM("ERROR la cantidad dada es mayor a la cantidad que hay en la celda actual");
   }
   if (!VALIDCOLOR(color))
   {
-    BOOM("ERROR debes ingresar un color válido");
+    BOOM("ERROR debes ingresar un color valido");
   }
   celdaActual->bolitas[color] -= n;
 }
@@ -72,7 +73,7 @@ void MoverNTInf(TableroInfinito t, Dir dir, int n)
   // PRECOND: la dirección dada es válida
   if (!VALIDDIR(dir))
   {
-    BOOM("ERROR debes ingresar una dirección válida");
+    BOOM("ERROR debes ingresar una dirección valida");
   }
 
   if (n <= 0)
@@ -97,6 +98,7 @@ void MoverNTInf(TableroInfinito t, Dir dir, int n)
     t->y -= 1;
   }
   MoverNTInf(t, dir, n - 1);
+  BBNode *celdaNueva = insertBBNode(t->celda, t->x, t->y);
 }
 
 //--------------------------------------------------------------------------

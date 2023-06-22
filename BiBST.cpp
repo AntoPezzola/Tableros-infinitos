@@ -7,8 +7,11 @@ using namespace std;
 // Invariante de representación
 //==========================================================================
 /* INV.REP.
- * COMPLETAR
- */
+   * Los pares de claves no se repiten en el arbol
+   * Las claves de los hijos del BBNode no son iguales que el del raiz
+   * La cantidad de bolitas en celda no puede ser negativa
+   * El par de claves, deben ser numeros enteros
+*/
 
 //==========================================================================
 // Implementación
@@ -65,22 +68,22 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
   if (nodo->kx < x && nodo->ky < y)
   {
     nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
-    return  insertBBNode(nodo->hijo[NE], x, y);
+    return nodo->hijo[NE];
   }
   if (nodo->kx < x &&nodo->ky >= y)
   {
     nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
-    return insertBBNode(nodo->hijo[SE], x, y);
+    return nodo->hijo[SE]; 
   }
   if (nodo->kx >= x && nodo->ky < y)
   {
     nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
-    return insertBBNode(nodo->hijo[NO], x, y);
+    return nodo->hijo[NO];
   }
   if (nodo->kx >= x && nodo->ky >=  y)
   {
     nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
-    return insertBBNode(nodo->hijo[SO], x, y);
+    return nodo->hijo[SO];
   }
    return nodo; 
 }
