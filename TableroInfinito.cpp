@@ -12,13 +12,12 @@ using namespace std;
 struct TableroInfinitoHeader
 {
   BBNode *celda; // celda actual, la cual se incializa con 0,0 sin bolitas, ni nodos
-  int x; // coordenada x de la celda actual
-  int y; // coordenada y de la celda actual
+  int x;         // coordenada x de la celda actual
+  int y;         // coordenada y de la celda actual
 };
 /* INV.REP.:
-   * Cuando saco bolitas o pongo bolitas en celda actual, la misma debe exisir en el tablero
-   * Para pedirle la cantidad de bolitas en la celda actual, la misma debe existir en el tablero
-   * No existen celdas repetidas en el tablero
+  
+ * No existen celdas repetidas en el tablero
  */
 
 typedef TableroInfinitoHeader *TableroInfinito;
@@ -27,7 +26,7 @@ typedef TableroInfinitoHeader *TableroInfinito;
 TableroInfinito TInfInicial()
 {
   TableroInfinito t = new TableroInfinitoHeader;
-  t->celda = insertBBNode(EMPTYBB, 0, 0);
+  t->celda = insertBBNode(EMPTYBB, 0,0); 
   t->x = 0;
   t->y = 0;
   return t;
@@ -40,8 +39,8 @@ void PonerNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  BBNode *celdaNueva = findBBNode(t->celda, t->x, t->y);
-  celdaNueva->bolitas[color] += n;
+  BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y);
+  celdaActual->bolitas[color] += n;
 }
 
 //--------------------------------------------------------------------------
@@ -50,11 +49,7 @@ void SacarNTInf(TableroInfinito t, Color color, int n)
   // PRECOND:
   //  * el color es válido
   //  * hay al menos n bolitas en la celda actual en t
-  BBNode *celdaActual = findBBNode(t->celda, t->x, t->y);
-  if (celdaActual == EMPTYBB)
-  {
-    BOOM("ERROR la celda no existe");
-  }
+  BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y);
 
   if (celdaActual->bolitas[color] < n)
   {
@@ -76,29 +71,22 @@ void MoverNTInf(TableroInfinito t, Dir dir, int n)
     BOOM("ERROR debes ingresar una dirección valida");
   }
 
-  if (n <= 0)
-  {
-    return;
-  }
-
   if (dir == NORTE)
   {
-    t->y += 1;
+    t->y += n;
   }
   if (dir == ESTE)
   {
-    t->x += 1;
+    t->x += n;
   }
   if (dir == OESTE)
   {
-    t->x -= 1;
+    t->x -= n;
   }
   if (dir == SUR)
   {
-    t->y -= 1;
+    t->y -= n;
   }
-  MoverNTInf(t, dir, n - 1);
-  BBNode *celdaNueva = insertBBNode(t->celda, t->x, t->y);
 }
 
 //--------------------------------------------------------------------------
@@ -121,15 +109,13 @@ int nroBolitasTInf(TableroInfinito t, Color color)
 //--------------------------------------------------------------------------
 void LiberarTInf(TableroInfinito t)
 {
-  if (t == NULL)
+  if (t != NULL)
   {
-    return;
+  LiberarBiBST(t->celda);
+  delete t;
+  
   }
 
-  LiberarBiBST(t->celda);
-
-  delete t->celda;
-  delete t;
 }
 
 //==========================================================================
@@ -137,16 +123,10 @@ void LiberarTInf(TableroInfinito t)
 //==========================================================================
 void PrintRepTInf(TableroInfinito t)
 {
-  if (t == NULL)
+  if (t != NULL)
   {
-    return;
-  }
-  if (t->celda == EMPTYBB)
-  {
-    return;
-  }
-  cout << "Celda actual: "
-       << "(" << t->x << "," << t->y << ")" << endl;
+  cout << "Celda actual: " << "(" << t->x << "," << t->y << ")" << endl;
   PrintBB(t->celda);
+  }
   cout << endl;
 }

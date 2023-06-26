@@ -7,20 +7,20 @@ using namespace std;
 // Invariante de representación
 //==========================================================================
 /* INV.REP.
-   * Los pares de claves no se repiten en el arbol
-   * Las claves de los hijos del BBNode no son iguales que el del raiz
-   * La cantidad de bolitas en celda no puede ser negativa
-   * El par de claves, deben ser numeros enteros
-*/
+ * Los pares de claves no se repiten en el arbol
+ * Las claves de los hijos del BBNode no son iguales que el del raiz
+ * La cantidad de bolitas en celda no puede ser negativa
+ * El par de claves, deben ser numeros enteros
+ */
 
 //==========================================================================
 // Implementación
 //==========================================================================
 BBNode *findBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == EMPTYBB)
+  if (nodo == NULL)
   {
-    return EMPTYBB;
+    return NULL;
   }
 
   if (nodo->kx == x && nodo->ky == y)
@@ -28,31 +28,30 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
     return nodo;
   }
 
-  if (nodo->kx < x && nodo->ky < y)
+  if (x > nodo->kx && y > nodo->ky)
   {
     return findBBNode(nodo->hijo[NE], x, y);
   }
-  if (nodo->kx < x && nodo->ky >= y) 
+  if (x > nodo->kx && y <= nodo->ky)
   {
     return findBBNode(nodo->hijo[SE], x, y);
   }
-  if (nodo->kx >= x && nodo->ky < y)
+  if (x <= nodo->kx && y > nodo->ky)
   {
     return findBBNode(nodo->hijo[NO], x, y);
   }
-  if (nodo->kx >= x &&nodo->ky >= y)
+  if (x <= nodo->kx && y <= nodo->ky)
 
   {
     return findBBNode(nodo->hijo[SO], x, y);
   }
 
-  return EMPTYBB;
+  return NULL;
 }
-
 
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == EMPTYBB)
+  if (nodo == NULL)
   {
     BBNode *nuevoNodo = new BBNode;
     nuevoNodo->kx = x;
@@ -60,45 +59,46 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
     return nuevoNodo;
   }
 
-  if (nodo->kx == x && nodo->ky == y)
-  {
-    return nodo;
-  }
+   BBNode* nodoEncontrado = findBBNode(nodo, x, y) ; 
+   if ( nodoEncontrado != NULL) {
+    return nodoEncontrado; 
+   }
 
-  if (nodo->kx < x && nodo->ky < y)
+  if (x > nodo->kx && y > nodo->ky)
   {
     nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
     return nodo->hijo[NE];
   }
-  if (nodo->kx < x &&nodo->ky >= y)
+  if (x > nodo->kx && y <= nodo->ky)
   {
     nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
-    return nodo->hijo[SE]; 
+    return nodo->hijo[SE];
   }
-  if (nodo->kx >= x && nodo->ky < y)
+  if (x <= nodo->kx && y > nodo->ky)
   {
     nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
     return nodo->hijo[NO];
   }
-  if (nodo->kx >= x && nodo->ky >=  y)
+  if (x <= nodo->kx && y <= nodo->ky)
   {
     nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
     return nodo->hijo[SO];
   }
-   return nodo; 
+  return nodo;
 }
 
-void LiberarBiBST(BiBST t){
-  if (t == EMPTYBB ) {
-    return; 
+void LiberarBiBST(BiBST t)
+{
+  if (t != NULL)
+  {
+  LiberarBiBST(t->hijo[NE]);
+  LiberarBiBST(t->hijo[SE]);
+  LiberarBiBST(t->hijo[NO]);
+  LiberarBiBST(t->hijo[SO]);
+
+  delete t;
   }
-      LiberarBiBST(t->hijo[NE]);
-      LiberarBiBST(t->hijo[SE]);
-      LiberarBiBST(t->hijo[NO]);
-      LiberarBiBST(t->hijo[SO]); 
-       
-    delete t; 
-    }
+}
 
 //==========================================================================
 // Impresión para verificaciones
