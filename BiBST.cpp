@@ -51,6 +51,8 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
 
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
+//PrintBB(nodo); 
+
   if (nodo == EMPTYBB)
   {
     BBNode *nuevoNodo = new BBNode;
@@ -88,7 +90,6 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
       nodoActual = nodoActual->hijo[SO];
     }
   }
-
 
   BBNode *nuevoNodo = new BBNode;
   nuevoNodo->kx = x;

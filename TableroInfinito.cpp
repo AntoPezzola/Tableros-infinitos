@@ -16,7 +16,6 @@ struct TableroInfinitoHeader
   int y;         // coordenada y de la celda actual
 };
 /* INV.REP.:
-  
  * No existen celdas repetidas en el tablero
  */
 
@@ -26,7 +25,7 @@ typedef TableroInfinitoHeader *TableroInfinito;
 TableroInfinito TInfInicial()
 {
   TableroInfinito t = new TableroInfinitoHeader;
-  t->celda = insertBBNode(EMPTYBB, 0,0); 
+  t->celda = insertBBNode(EMPTYBB, 0,0);
   t->x = 0;
   t->y = 0;
   return t;

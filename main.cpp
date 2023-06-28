@@ -6,28 +6,27 @@ using namespace std;
 
 int main(){
   TableroInfinito t = TInfInicial();
-  PonerNTInf(t, ROJO,  1); PrintRepTInf(t);
-  PonerNTInf(t, AZUL,  1);
-  MoverNTInf(t, OESTE, 1);
-//  PonerNTInf(t, VERDE, 1);  PrintRepTInf(t);
-//  MoverNTInf(t, OESTE, 4);
-//  PonerNTInf(t, ROJO,  1);
-//  PonerNTInf(t, AZUL,  2);  PrintRepTInf(t);
-//  MoverNTInf(t, ESTE,  5);
-//  PonerNTInf(t, ROJO,  2);  PrintRepTInf(t);
-//  int r = nroBolitasTInf(t, ROJO);
-//  int b = nroBolitasTInf(t, AZUL);
-//  MoverNTInf(t, ESTE,  1);
-//  MoverNTInf(t, NORTE, 1);
-//  PonerNTInf(t, NEGRO, 1);  PrintRepTInf(t);
-//  MoverNTInf(t, SUR,   1);
-//  MoverNTInf(t, OESTE, 6);
-//  int b2 = nroBolitasTInf(t, AZUL); 
- 
-//  cout << "Test nroBolitas(Rojo) ( 0,0) - "; PRINTCOLORN(ROJO, r);  cout << " (debe ser `Rojo: 3`)" << endl;
-//  cout << "Test nroBolitas(Azul) ( 0,0) - "; PRINTCOLORN(AZUL, b);  cout << " (debe ser `Azul: 1`)" << endl;
-//  cout << "Test nroBolitas(Azul) (-5,0) - "; PRINTCOLORN(AZUL, b2); cout << " (debe ser `Azul: 2`)" << endl;
-//
+ PonerNTInf(t, ROJO,  1); PrintRepTInf(t);
+ PonerNTInf(t, AZUL,  1); PrintRepTInf(t);
+ MoverNTInf(t, OESTE, 1);
+ PonerNTInf(t, VERDE, 1);  PrintRepTInf(t);
+ MoverNTInf(t, OESTE, 4);
+ PonerNTInf(t, ROJO,  1);
+ PonerNTInf(t, AZUL,  2); PrintRepTInf(t);
+ MoverNTInf(t, ESTE,  5);  
+ PonerNTInf(t, ROJO,  2);  PrintRepTInf(t);
+ int r = nroBolitasTInf(t, ROJO);
+  int b = nroBolitasTInf(t, AZUL);
+  MoverNTInf(t, ESTE,  1);
+  MoverNTInf(t, NORTE, 1);
+  PonerNTInf(t, NEGRO, 1);  PrintRepTInf(t);
+  MoverNTInf(t, SUR,   1);
+  MoverNTInf(t, OESTE, 6);
+  int b2 = nroBolitasTInf(t, AZUL); 
+  cout << "Test nroBolitas(Rojo) ( 0,0) - "; PRINTCOLORN(ROJO, r);  cout << " (debe ser `Rojo: 3`)" << endl;
+  cout << "Test nroBolitas(Azul) ( 0,0) - "; PRINTCOLORN(AZUL, b);  cout << " (debe ser `Azul: 1`)" << endl;
+  cout << "Test nroBolitas(Azul) (-5,0) - "; PRINTCOLORN(AZUL, b2); cout << " (debe ser `Azul: 2`)" << endl;
+
   LiberarTInf(t);
 }
 
