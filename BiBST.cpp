@@ -51,7 +51,7 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
 
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == NULL)
+  if (nodo == EMPTYBB)
   {
     BBNode *nuevoNodo = new BBNode;
     nuevoNodo->kx = x;
@@ -59,44 +59,71 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
     return nuevoNodo;
   }
 
-   BBNode* nodoEncontrado = findBBNode(nodo, x, y) ; 
-   if ( nodoEncontrado != NULL) {
-    return nodoEncontrado; 
-   }
+  BBNode *nodoActual = nodo;
+  BBNode *nodoAnterior = NULL;
 
-  if (x > nodo->kx && y > nodo->ky)
+  while (nodoActual != EMPTYBB)
   {
-    nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
-    return nodo->hijo[NE];
+    if (nodoActual->kx == x && nodoActual->ky == y)
+    {
+      return nodoActual;
+    }
+  
+    nodoAnterior = nodoActual;
+
+    if (x > nodoActual->kx && y > nodoActual->ky)
+    {
+      nodoActual = nodoActual->hijo[NE];
+    }
+    if (x > nodoActual->kx && y <= nodoActual->ky)
+    {
+      nodoActual = nodoActual->hijo[SE];
+    }
+    if (x <= nodoActual->kx && y > nodoActual->ky)
+    {
+      nodoActual = nodoActual->hijo[NO];
+    }
+    if (x <= nodoActual->kx && y <= nodoActual->ky)
+    {
+      nodoActual = nodoActual->hijo[SO];
+    }
   }
-  if (x > nodo->kx && y <= nodo->ky)
+
+
+  BBNode *nuevoNodo = new BBNode;
+  nuevoNodo->kx = x;
+  nuevoNodo->ky = y;
+
+  if (x > nodoAnterior->kx && y > nodoAnterior->ky)
   {
-    nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
-    return nodo->hijo[SE];
+    nodoAnterior->hijo[NE] = nuevoNodo;
   }
-  if (x <= nodo->kx && y > nodo->ky)
+  if (x > nodoAnterior->kx && y <= nodoAnterior->ky)
   {
-    nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
-    return nodo->hijo[NO];
+    nodoAnterior->hijo[SE] = nuevoNodo;
   }
-  if (x <= nodo->kx && y <= nodo->ky)
+  if (x <= nodoAnterior->kx && y > nodoAnterior->ky)
   {
-    nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
-    return nodo->hijo[SO];
+    nodoAnterior->hijo[NO] = nuevoNodo;
   }
-  return nodo;
+  if (x <= nodoAnterior->kx && y <= nodoAnterior->ky)
+  {
+    nodoAnterior->hijo[SO] = nuevoNodo;
+  }
+
+  return nuevoNodo; 
 }
 
 void LiberarBiBST(BiBST t)
 {
   if (t != NULL)
   {
-  LiberarBiBST(t->hijo[NE]);
-  LiberarBiBST(t->hijo[SE]);
-  LiberarBiBST(t->hijo[NO]);
-  LiberarBiBST(t->hijo[SO]);
+    LiberarBiBST(t->hijo[NE]);
+    LiberarBiBST(t->hijo[SE]);
+    LiberarBiBST(t->hijo[NO]);
+    LiberarBiBST(t->hijo[SO]);
 
-  delete t;
+    delete t;
   }
 }
 

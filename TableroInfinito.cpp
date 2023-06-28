@@ -113,7 +113,6 @@ void LiberarTInf(TableroInfinito t)
   {
   LiberarBiBST(t->celda);
   delete t;
-  
   }
 
 }
