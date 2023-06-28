@@ -15,7 +15,7 @@ int main(){
  PonerNTInf(t, AZUL,  2); PrintRepTInf(t);
  MoverNTInf(t, ESTE,  5);  
  PonerNTInf(t, ROJO,  2);  PrintRepTInf(t);
- int r = nroBolitasTInf(t, ROJO);
+  int r = nroBolitasTInf(t, ROJO);
   int b = nroBolitasTInf(t, AZUL);
   MoverNTInf(t, ESTE,  1);
   MoverNTInf(t, NORTE, 1);
