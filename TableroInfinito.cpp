@@ -25,7 +25,7 @@ typedef TableroInfinitoHeader *TableroInfinito;
 TableroInfinito TInfInicial()
 {
   TableroInfinito t = new TableroInfinitoHeader;
-  t->celda = insertBBNode(EMPTYBB, 0,0);
+  t->celda = EMPTYBB; 
   t->x = 0;
   t->y = 0;
   return t;
@@ -38,7 +38,11 @@ void PonerNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y);
+  if(t->celda == EMPTYBB) {
+    t->celda = insertBBNode(t->celda, t->x, t->y);
+  }
+
+  BBNode* celdaActual = insertBBNode(t->celda, t->x, t->y); 
   celdaActual->bolitas[color] += n;
 }
 
