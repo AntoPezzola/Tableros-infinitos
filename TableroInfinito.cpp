@@ -11,21 +11,25 @@ using namespace std;
 //==========================================================================
 struct TableroInfinitoHeader
 {
-  BBNode *celda; // celda actual, la cual se incializa con 0,0 sin bolitas, ni nodos
+  BBNode *celda; // celda actual
   int x;         // coordenada x de la celda actual
   int y;         // coordenada y de la celda actual
 };
+
+typedef TableroInfinitoHeader *TableroInfinito;
+//==========================================================================
+// Invariante de representación
+//==========================================================================
 /* INV.REP.:
  * No existen celdas repetidas en el tablero
  */
-
-typedef TableroInfinitoHeader *TableroInfinito;
-
-//--------------------------------------------------------------------------
+//==========================================================================
+// Implementación
+//==========================================================================
 TableroInfinito TInfInicial()
 {
   TableroInfinito t = new TableroInfinitoHeader;
-  t->celda = EMPTYBB; 
+  t->celda = EMPTYBB;
   t->x = 0;
   t->y = 0;
   return t;
@@ -38,11 +42,12 @@ void PonerNTInf(TableroInfinito t, Color color, int n)
   {
     BOOM("ERROR debes ingresar un color válido");
   }
-  if(t->celda == EMPTYBB) {
+  if (t->celda == EMPTYBB)
+  {
     t->celda = insertBBNode(t->celda, t->x, t->y);
   }
 
-  BBNode* celdaActual = insertBBNode(t->celda, t->x, t->y); 
+  BBNode *celdaActual = insertBBNode(t->celda, t->x, t->y);
   celdaActual->bolitas[color] += n;
 }
 
@@ -71,7 +76,7 @@ void MoverNTInf(TableroInfinito t, Dir dir, int n)
   // PRECOND: la dirección dada es válida
   if (!VALIDDIR(dir))
   {
-    BOOM("ERROR debes ingresar una dirección valida");
+    BOOM("ERROR debes ingresar una direccion valida");
   }
 
   if (dir == NORTE)
@@ -98,7 +103,7 @@ int nroBolitasTInf(TableroInfinito t, Color color)
   // PRECOND: el color es válido
   if (!VALIDCOLOR(color))
   {
-    BOOM("ERROR debes ingresar un color válido");
+    BOOM("ERROR debes ingresar un color valido");
   }
   BBNode *celdaActual = findBBNode(t->celda, t->x, t->y);
 
@@ -114,10 +119,9 @@ void LiberarTInf(TableroInfinito t)
 {
   if (t != NULL)
   {
-  LiberarBiBST(t->celda);
-  delete t;
+    LiberarBiBST(t->celda);
+    delete t;
   }
-
 }
 
 //==========================================================================
@@ -127,8 +131,9 @@ void PrintRepTInf(TableroInfinito t)
 {
   if (t != NULL)
   {
-  cout << "Celda actual: " << "(" << t->x << "," << t->y << ")" << endl;
-  PrintBB(t->celda);
+    cout << "Celda actual: "
+         << "(" << t->x << "," << t->y << ")" << endl;
+    PrintBB(t->celda);
   }
   cout << endl;
 }

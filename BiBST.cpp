@@ -16,9 +16,34 @@ using namespace std;
 //==========================================================================
 // Implementación
 //==========================================================================
+
+bool esCuadranteNe(BBNode *nodo, int x, int y)
+{
+  return x > nodo->kx && y > nodo->ky;
+}
+
+bool esCuadranteSo(BBNode *nodo, int x, int y)
+{
+  return x <= nodo->kx && y <= nodo->ky;
+}
+
+bool esCuadranteNo(BBNode *nodo, int x, int y)
+{
+  return x <= nodo->kx && y > nodo->ky;
+}
+bool esCuadranteSe(BBNode *nodo, int x, int y)
+{
+  return x > nodo->kx && y <= nodo->ky;
+}
+
+bool esNodoNulo(BBNode *nodo)
+{
+  return nodo == EMPTYBB;
+}
+
 BBNode *findBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == EMPTYBB)
+  if (esNodoNulo(nodo))
   {
     return EMPTYBB;
   }
@@ -28,30 +53,31 @@ BBNode *findBBNode(BBNode *nodo, int x, int y)
     return nodo;
   }
 
-  if (x > nodo->kx && y > nodo->ky)
+  if (esCuadranteNe(nodo, x, y))
   {
     return findBBNode(nodo->hijo[NE], x, y);
   }
-  if (x > nodo->kx && y <= nodo->ky)
+  if (esCuadranteSe(nodo, x, y))
   {
     return findBBNode(nodo->hijo[SE], x, y);
   }
-  if (x <= nodo->kx && y > nodo->ky)
+  if (esCuadranteNo(nodo, x, y))
   {
     return findBBNode(nodo->hijo[NO], x, y);
   }
-  if (x <= nodo->kx && y <= nodo->ky)
-
+  if (esCuadranteSo(nodo, x, y))
   {
     return findBBNode(nodo->hijo[SO], x, y);
   }
-
   return EMPTYBB;
 }
 
 BBNode *insertBBNode(BBNode *nodo, int x, int y)
 {
-  if (nodo == EMPTYBB)
+
+  BBNode *nodoActual;
+
+  if (esNodoNulo(nodo))
   {
     BBNode *nuevoNodo = new BBNode;
     nuevoNodo->kx = x;
@@ -64,26 +90,43 @@ BBNode *insertBBNode(BBNode *nodo, int x, int y)
     return nodo;
   }
 
-  if (x > nodo->kx && y > nodo->ky)
+  if (esCuadranteNe(nodo, x, y))
   {
-    nodo->hijo[NE] = insertBBNode(nodo->hijo[NE], x, y);
-    return nodo->hijo[NE];
+    nodoActual = insertBBNode(nodo->hijo[NE], x, y);
+    if (esNodoNulo(nodo->hijo[NE]))
+    {
+      nodo->hijo[NE] = nodoActual;
+    }
+    return nodoActual;
   }
-  if (x > nodo->kx && y <= nodo->ky)
+  if (esCuadranteSe(nodo, x, y))
   {
-    nodo->hijo[SE] = insertBBNode(nodo->hijo[SE], x, y);
-    return nodo->hijo[SE];
+    nodoActual = insertBBNode(nodo->hijo[SE], x, y);
+    if (esNodoNulo(nodo->hijo[SE]))
+    {
+      nodo->hijo[SE] = nodoActual;
+    }
+    return nodoActual;
   }
-  if (x <= nodo->kx && y > nodo->ky)
+  if (esCuadranteNo(nodo, x, y))
   {
-    nodo->hijo[NO] = insertBBNode(nodo->hijo[NO], x, y);
-    return nodo->hijo[NO];
+    nodoActual = insertBBNode(nodo->hijo[NO], x, y);
+    if (esNodoNulo(nodo->hijo[NO]))
+    {
+      nodo->hijo[NO] = nodoActual;
+    }
+    return nodoActual;
   }
-  if (x <= nodo->kx && y <= nodo->ky)
+  if (esCuadranteSo(nodo, x, y))
   {
-    nodo->hijo[SO] = insertBBNode(nodo->hijo[SO], x, y);
-    return nodo->hijo[SO];
+    nodoActual = insertBBNode(nodo->hijo[SO], x, y);
+    if (esNodoNulo(nodo->hijo[SO]))
+    {
+      nodo->hijo[SO] = nodoActual;
+    }
+    return nodoActual;
   }
+  delete nodoActual;
   return nodo;
 }
 
@@ -91,12 +134,12 @@ void LiberarBiBST(BiBST t)
 {
   if (t != EMPTYBB)
   {
-   LiberarBiBST(t->hijo[NE]);
-  LiberarBiBST(t->hijo[SE]);
-  LiberarBiBST(t->hijo[NO]);
-  LiberarBiBST(t->hijo[SO]);
+    LiberarBiBST(t->hijo[NE]);
+    LiberarBiBST(t->hijo[SE]);
+    LiberarBiBST(t->hijo[NO]);
+    LiberarBiBST(t->hijo[SO]);
 
-  delete t;
+    delete t;
   }
 }
 
